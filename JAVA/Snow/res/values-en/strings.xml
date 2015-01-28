@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Snow</string>
+    <string name="menu_settings">Settings</string>
+     <string name="menu_list">Stations</string>
+    <string name="title_activity_snow">Snow</string>
+    <string name="title_activity_station_list">Station list</string>
+    <string name="string_station_name">Station name</string>
+    <string name="btn_search">Search</string>
+    <string name="txt_open">Open</string>
+    <string name="txt_temperature_matin">Temperature Morning:</string>
+    <string name="txt_temperature_midi">Temperature Afternoon:</string>
+    <string name="txt_wind_speed">Wind speed:</string>
+    <string name="txt_snow_level">Snow level:</string>
+    <string name="txt_nothing">Nothing</string>
+    <string name="txt_wait">please wait…</string>
+</resources>

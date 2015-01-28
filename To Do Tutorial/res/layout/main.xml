@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    >
+	<TableLayout android:id="@+id/TableLayout01" 
+				android:layout_width="fill_parent" 
+				android:layout_height="fill_parent"
+				android:layout_alignParentBottom="true"
+				android:stretchColumns="1">
+		<TableRow>
+			<TextView android:text="Task"/>
+			<EditText android:id="@+id/txtTask" />
+		</TableRow>
+		<TableRow>
+			<TextView android:text="Priority:" />
+			<RadioGroup android:id="@+id/priority">
+					<RadioButton android:id="@+id/highPriority"
+						android:text="High"/>
+					<RadioButton android:id="@+id/medPriority"
+						android:text="Medium"/>
+					<RadioButton android:id="@+id/lowPriority"
+						android:text="Low"/>
+			</RadioGroup>
+		</TableRow>
+		<TableRow>
+			<TextView />
+			<Button android:id="@+id/btnSave"
+					android:text="Save"/>
+		</TableRow>
+	</TableLayout>
+</LinearLayout>

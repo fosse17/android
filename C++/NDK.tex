@@ -1,0 +1,204 @@
+\documentclass[a4paper]{article}
+\usepackage{enteteTD}
+
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[dvips]{graphicx}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage[francais]{babel}
+\usepackage{euscript}
+\usepackage{boxedminipage}
+\usepackage{theorem}
+\theoremstyle{break}
+\usepackage{multirow}
+\usepackage{xspace}
+\usepackage{url}
+\usepackage{epsfig}
+\usepackage[ruled,vlined]{algorithm2e}
+
+%\usepackage[latin1]{inputenc}
+%\usepackage{epsfig}
+
+\setlength{\textheight}{23.5cm}
+\setlength{\topmargin}{-1cm}
+\setlength{\textwidth}{155mm}
+\setlength{\oddsidemargin}{2mm}
+
+\begin{document}
+
+%------------------- TITRE -----------------------------------------
+\date{\today}
+\TDHead{Pierre RAMET}{Licence SIL}{\large Android C++}  
+%-------------------------------------------------------------------
+
+Ce document est basé sur l'article "Android C++" du numéro 154 de Linux Magazine
+France par Y.~Bailly.
+
+\medskip
+\hrule
+\medskip
+
+\section{Configuration}
+
+    $\blacktriangleright$ Kits de développement
+
+Pour pouvoir développer une application en C/C++ pour la plateforme
+Android, il est nécessaire d'installer le NDK (kit natif) ainsi que le
+SDK (kit standard). 
+Au département, ces environnements de développement ont été installés
+dans {\tt /info-nfs/opt/Android-sdk/}.
+
+Il vous faut cependant positionner les variables d'environnement
+suivantes, par exemple :
+
+\begin{verbatim}
+export ANDROID_SDK=/Users/ramet/Work/android/android-sdk-macosx
+export PATH=$ANDROID_SDK/tools:$ANDROID_SDK/platform-tools:$PATH
+export ANDROID_NDK=/Users/ramet/Work/android/android-ndk-r8c
+export PATH=$ANDROID_NDK:$PATH
+\end{verbatim}
+
+    $\blacktriangleright$ Périphérique virtuel
+
+Pour tester le code que nous allons écrire, il est nécessaire de
+disposer d'un périphérique virtuel ou physique.
+Pour configurer un périphérique virtuel, utilisez la commande~:
+
+\begin{verbatim}
+android avd
+\end{verbatim}
+
+puis démarrez le périphérique. Les options par défaut sont
+suffisantes, notez cependant le niveau d'API disponible 
+({\tt Android 4.2 - API Level 17}, par exemple). 
+Pour vérifier que le périphérique est bien reconnu, exécutez la commande~:
+
+\begin{verbatim}
+adb devices
+\end{verbatim}
+
+\section{Création d'un projet}
+
+Il faut commencer par créer une arborescence initiale~:
+
+\begin{verbatim}
+mkdir mandel && cd mandel
+mkdir -p jni res/values
+\end{verbatim}
+
+A la racine du projet, il faut créer un fichier 
+"{\tt Android-Manifest.xml}":
+
+\begin{verbatim}
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+      package="com.example.mandel"
+      android:versionCode="1"
+      android:versionName="1.0">
+    <uses-sdk android:minSdkVersion="9" />
+    <application android:label="@string/app_name"
+                 android:hasCode="false" android:debuggable="true">
+        <activity android:name="android.app.NativeActivity"
+                  android:label="@string/app_name"
+                  android:configChanges="keyboard|keyboardHidden|orientation">
+            <meta-data android:name="android.app.lib_name"
+                    android:value="mandel" />
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+    </application>
+</manifest>
+\end{verbatim}
+
+ainsi qu'un fichier "{\tt default.properies}" contenant le niveau API
+de la cible~:
+
+\begin{verbatim}
+target=android-17
+\end{verbatim}
+
+Dans le répertoire {\tt res/values}, il faut nommer l'application avec un fichier 
+ "{\tt strings.xml}" contenant~:
+
+\begin{verbatim}
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Mandel</string>
+</resources>
+\end{verbatim}
+
+Enfin, créez deux fichiers dans le répertoire {\tt jni}, 
+le premier "{\tt Application.mk}"~:
+
+\begin{verbatim}
+APP_ABI := armeabi
+APP_PLATFORM := android-10
+\end{verbatim}
+
+et le second "{\tt Android.mk}"~:
+
+\begin{verbatim}
+LOCAL_PATH := $(call my-dir)
+include $(CLEAR_VARS)
+LOCAL_MODULE    := mandel
+LOCAL_SRC_FILES := mandel.cpp
+LOCAL_LDLIBS    := -lm -llog -landroid
+LOCAL_STATIC_LIBRARIES := android_native_app_glue
+include $(BUILD_SHARED_LIBRARY)
+\end{verbatim}
+
+\section{Le code}
+
+Les sources du projet sont disponibles dans le répertoire {\tt
+  /info-nfs/users/pramet/mandel\_android.tar.gz}.
+
+La partie concernant l'affichage de l'ensemble de MandelBrot se trouve
+dans la fonction {\tt draw\_frame()}. 
+
+La gestion des évènements est
+traitée dans la fonction {\tt engine\_handle\_cmd()}.
+
+La mise en place de l'application débute avec la fonction {\tt android\_main()}.
+
+\newpage
+
+\section{Compiler et déployer}
+
+Pour compiler le projet~:
+
+\begin{verbatim}
+android update project -p . -s
+ndk-build -B V=1
+ant debug
+\end{verbatim}
+
+Il ne reste plus qu'à envoyer le paquetage sur le périphérique
+virtuel~:
+
+\begin{verbatim}
+adb -e install bin/NativeActivity-debug.apk
+\end{verbatim}
+
+ou physique~:
+
+\begin{verbatim}
+adb -d install bin/NativeActivity-debug.apk
+\end{verbatim}
+
+Pour visualiser la sortie "journal" de l'application (cf la macro {\tt LOGW})~:
+
+\begin{verbatim}
+adb -e logcat
+\end{verbatim}
+
+Pour désinstaller l'application~:
+
+\begin{verbatim}
+adb -e uninstall com.example.mandel
+\end{verbatim}
+
+\end{document}
+

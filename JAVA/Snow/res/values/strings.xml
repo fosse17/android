@@ -1,0 +1,39 @@
+<resources>
+
+    <string name="app_name">Snow</string>
+    <string name="menu_settings">Parametres</string>
+    <string name="title_activity_snow">Snow</string>
+     <string name="menu_list">Stations</string>
+    <string name="title_activity_station_list">Liste des stations</string>
+    <string name="string_station_name">Nom de la station</string>
+    <string name="btn_search">Chercher</string>
+    <string name="txt_open">Ouverte</string>
+    <string name="txt_temperature_matin">Temperature Matin:</string>
+    <string name="txt_temperature_midi">Temperature Midi:</string>
+    <string name="txt_wind_speed">Vitesse du vent:</string>
+    <string name="txt_snow_level">Niveau:</string>
+     <string name="txt_wait">Patientez…</string>
+     
+
+    <string-array name="stations">
+        <item>Gourette</item>
+        <item>Chamonix</item>
+        <item>Aussois</item>
+        <item>Corbier</item>
+        <item>Cauterets</item>
+        <item>Passy</item>
+        <item>Chatel</item>
+    </string-array>
+    
+     <string-array name="stations_adresses">
+        <item>Pyrénées, 64440</item>
+        <item>Alpes, 32345</item>
+        <item>Alpes, 34231</item>
+        <item>Jura, 23456</item>
+        <item>Hautes Alpes, 89765</item>
+        <item>Massif central, 23343</item>
+        <item>Chatel, 23343</item>
+    </string-array>
+        <string name="low_battery">Batterie faible!</string>
+
+</resources>

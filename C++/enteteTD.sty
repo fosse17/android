@@ -1,0 +1,159 @@
+%-*-LaTeX-*-
+% d\'efinition de tous les en-tetes
+
+
+
+%----------------------------------------------------------
+% MACRO EXO
+%----------------------------------------------------------
+\newcounter{NumroExo}
+\newcommand{\exo}[1]{
+   \stepcounter{NumroExo}
+   \medskip\noindent \textbf{Exercice \arabic{NumroExo}~: #1}
+}
+\newcommand{\exost}{
+   \stepcounter{NumroExo}
+   \medskip\noindent \textbf{Exercice \arabic{NumroExo}~:}
+}
+%\newcommand{\exo}[2]{
+%   \stepcounter{NumroExo}
+%   \medskip\noindent \textbf{Exercice\(^{#1}\) \arabic{NumroExo}~: #2}
+%}
+%----------------------------------------------------------
+
+
+
+
+%----------------------------------------------------------
+% en-t\^ete des feuilles TD/TP:
+% param\`etre 1: nom de l'UV
+% param\`etre 2: fili\`ere
+% param\`etre 3: titre
+%----------------------------------------------------------
+\newcommand{\TDHead}[4]{
+\begin{center}
+\mbox{IUT Informatique Bordeaux I}\hfill\mbox{#1}\\
+\mbox{#2}\hfill\mbox{2012--2013}\\[0.5cm]
+\medskip
+\hrule
+\ifthenelse{\not\equal{#3}{}}
+      {\textbf{#3} \vspace{0.2cm} \hrule}{}
+\vspace{0.2cm}
+\end{center}
+}
+
+%-----------------------------------------------------------
+
+
+% en-t\^ete des partiels et examen final:
+% param\`etre 1: fili\`ere
+% param\`etre 2: nom de l'UV
+% param\`etre 3: ann\'ee
+% param\`etre 4: ann\'ee
+% param\`etre 5: partiel ou exam
+% param\`etre 6: dur\'ee en pr\'ecisant heures
+\newcommand{\ExamHead}[6]{
+{\large
+\begin{center}
+\mbox{Universit\'e de Nice-Sophia Antipolis}\hfill\mbox{#1}\\
+\mbox{#2}\hfill\mbox{19#3--19#4}\\[0.5cm]
+#5\\[1cm]
+\end{center}
+}
+\begin{quote}
+\textbf{Dur\'ee :} #6\\
+Tous documents autoris\'es
+\end{quote}
+}
+
+% AUTRE en-t\^ete des partiels et examen final:
+% param\`etre 1: fili\`ere
+% param\`etre 2: nom de l'UV
+% param\`etre 3: ann\'ee
+% param\`etre 4: ann\'ee
+% param\`etre 5: partiel ou exam
+% param\`etre 6: dur\'ee en pr\'ecisant heures
+% param\`etre 7: documents autoris\'es ou non
+\newcommand{\ExamBisHead}[7]{
+{\large
+\begin{center}
+\mbox{Universit\'e de Nice-Sophia Antipolis}\hfill\mbox{#1}\\
+\mbox{#2}\hfill\mbox{19#3--19#4}\\[0.5cm]
+#5\\[1cm]
+\end{center}
+}
+\begin{quote}
+\textbf{Dur\'ee :} #6\\
+#7
+\end{quote}
+}
+
+% en-t\^ete des interro:
+% param\`etre 1: fili\`ere
+% param\`etre 2: nom de l'UV
+% param\`etre 3: ann\'ee
+% param\`etre 4: ann\'ee
+% param\`etre 5: num\'ero
+% param\`etre 6: dur\'ee
+% param\`etre 7: avec ou sans documents
+\newcommand{\CcHead}[7]{
+{\large
+\begin{center}
+\mbox{Universit\'e de Nice-Sophia Antipolis}\hfill\mbox{#1}\\
+\mbox{#2}\hfill\mbox{19#3--19#4}\\[0.5cm]
+Interrogation \'ecrite N$^\circ$ #5\\[1cm]
+\end{center}
+}
+\begin{quote}
+\textbf{Dur\'ee :} #6\\
+#7
+\end{quote}
+}
+
+
+% option sujet.sty 15-Mar-93
+
+\RequirePackage{ifthen}
+
+
+%\makeentete{Universite}{Formation}{duree}
+%           {autorises?non/oui}{examen}{recommendations}
+
+\newcommand{\makeentete}[6]{
+
+\newlength{\SujetSauveLg}
+\setlength{\SujetSauveLg}{\parindent}
+\setlength\parindent{0truecm}
+
+#1\hfill\@date \\
+#2\hfill\ Dur\'ee:~#3\\[0.5cm]
+\centerline{\bfseries #4}\\
+%\centerline{\bfseries Travaux Pratiques}\\[0.4cm]
+\hrule
+\ifthenelse{\not\equal{#6}{}}
+      {\emph{#6} \vspace{0.2cm} \hrule}{}
+\vspace{0.2cm}
+
+\setlength{\parindent}{\SujetSauveLg}
+}
+
+
+
+
+%\newcommand{\exo}{
+%   \stepcounter{NumroExo}
+%   \par\noindent\arabic{NumroExo})
+%}
+
+\parindent=1.25em
+\parskip=1ex
+
+
+
+
+
+
+
+
+
+
